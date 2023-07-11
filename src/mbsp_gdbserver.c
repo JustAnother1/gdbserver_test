@@ -35,9 +35,7 @@ uint8_t tcp_get_next_received_byte(void)
     uint8_t res = buffer[recv_pos];
     recv_pos++;
     return res;
-
-
-    }
+}
 
 uint32_t tcp_send_bytes(uint8_t *data, uint32_t length)
 {
