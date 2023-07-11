@@ -1,2 +1,4 @@
 .settings/
-
+Debug/mbsp_gdbserver
+**/*.o
+**/*.d
