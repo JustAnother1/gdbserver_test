@@ -9,14 +9,15 @@
 #include "gdbserver/gdbserver.h"
 #include "mbsp_gdbserver.h"
 
-#define PORT   54321
+#define PORT         54321
+#define BUFFER_SIZE  256
 
 // target remote :54321
 // target extended-remote :54321
 
 static int client_fd;
-static uint32_t receivedLength;
-static char buffer[256];
+static uint32_t receivedLength = 0;
+static char buffer[BUFFER_SIZE];
 static uint32_t recv_pos;
 
 void tcp_send_string(char* msg)
@@ -32,9 +33,17 @@ uint32_t tcp_get_num_received_bytes(void)
 
 uint8_t tcp_get_next_received_byte(void)
 {
-    uint8_t res = buffer[recv_pos];
-    recv_pos++;
-    return res;
+    if(recv_pos < BUFFER_SIZE)
+    {
+        uint8_t res = buffer[recv_pos];
+        recv_pos++;
+        receivedLength--;
+        return res;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 uint32_t tcp_send_bytes(uint8_t *data, uint32_t length)
@@ -106,7 +115,7 @@ int main(int argc, char* argv[])
         }
         if(FD_ISSET(STDIN_FILENO, &input_fdset))
         {
-            if(fgets(buffer, 256, stdin) == NULL)
+            if(fgets(buffer, BUFFER_SIZE, stdin) == NULL)
             {
                 printf("\nclosing socket\n");
                 break;
@@ -116,7 +125,7 @@ int main(int argc, char* argv[])
         }
         else
         {
-            receivedLength = recv(client_fd, buffer, 256, 0);
+            receivedLength = recv(client_fd, buffer, BUFFER_SIZE, 0);
             recv_pos = 0;
             if(receivedLength == 0)
             {
@@ -124,7 +133,10 @@ int main(int argc, char* argv[])
                 break;
             }
             // write(STDOUT_FILENO, buffer, length);
-            gdbserver_tick();
+            while(0 != receivedLength)
+            {
+                gdbserver_tick();
+            }
         }
     }
 
