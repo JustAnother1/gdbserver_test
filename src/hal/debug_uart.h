@@ -12,21 +12,14 @@
  * with this program; if not, see <http://www.gnu.org/licenses/>
  *
  */
-#ifndef GDBSERVER_CFG_H_
-#define GDBSERVER_CFG_H_
+#ifndef HAL_DEBUG_UART_H_
+#define HAL_DEBUG_UART_H_
 
-#include <stdio.h>
 #include <string.h>
-#include <stdlib.h>
-#include "hal/debug_uart.h"
-#include "mbsp_gdbserver.h"
 
-#define MAX_COMMAND_LENGTH    1025
-#define MAX_REPLY_LENGTH      2000
+#define debug_msg(...)  printf(__VA_ARGS__)
+#define debug_line(...) printf(__VA_ARGS__); printf("\r\n")
 
-#define GDBSERVER_SEND_STRING            tcp_send_string
-#define GDBSERVER_SEND_BYTES             tcp_send_bytes
-#define GDBSERVER_NUM_RECEIVED_BYTES     tcp_get_num_received_bytes
-#define GDBSERVER_GET_NEXT_RECEIVED_BYTE tcp_get_next_received_byte
 
-#endif /* GDBSERVER_CFG_H_ */
+
+#endif /* HAL_DEBUG_UART_H_ */

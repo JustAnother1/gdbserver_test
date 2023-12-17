@@ -4,16 +4,22 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../src/gdbserver/cmd_qsupported.c \
+../src/gdbserver/cmd_qxfer.c \
 ../src/gdbserver/commands.c \
 ../src/gdbserver/gdbserver.c \
 ../src/gdbserver/util.c 
 
 C_DEPS += \
+./src/gdbserver/cmd_qsupported.d \
+./src/gdbserver/cmd_qxfer.d \
 ./src/gdbserver/commands.d \
 ./src/gdbserver/gdbserver.d \
 ./src/gdbserver/util.d 
 
 OBJS += \
+./src/gdbserver/cmd_qsupported.o \
+./src/gdbserver/cmd_qxfer.o \
 ./src/gdbserver/commands.o \
 ./src/gdbserver/gdbserver.o \
 ./src/gdbserver/util.o 
@@ -31,7 +37,7 @@ src/gdbserver/%.o: ../src/gdbserver/%.c src/gdbserver/subdir.mk
 clean: clean-src-2f-gdbserver
 
 clean-src-2f-gdbserver:
-	-$(RM) ./src/gdbserver/commands.d ./src/gdbserver/commands.o ./src/gdbserver/gdbserver.d ./src/gdbserver/gdbserver.o ./src/gdbserver/util.d ./src/gdbserver/util.o
+	-$(RM) ./src/gdbserver/cmd_qsupported.d ./src/gdbserver/cmd_qsupported.o ./src/gdbserver/cmd_qxfer.d ./src/gdbserver/cmd_qxfer.o ./src/gdbserver/commands.d ./src/gdbserver/commands.o ./src/gdbserver/gdbserver.d ./src/gdbserver/gdbserver.o ./src/gdbserver/util.d ./src/gdbserver/util.o
 
 .PHONY: clean-src-2f-gdbserver
 

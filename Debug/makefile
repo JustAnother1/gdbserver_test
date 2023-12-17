@@ -8,6 +8,7 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include src/target/subdir.mk
 -include src/gdbserver/subdir.mk
 -include src/subdir.mk
 ifneq ($(MAKECMDGOALS),clean)

@@ -2,3 +2,4 @@
 Debug/mbsp_gdbserver
 **/*.o
 **/*.d
+/Debug/

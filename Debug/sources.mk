@@ -15,4 +15,5 @@ OBJS :=
 SUBDIRS := \
 src/gdbserver \
 src \
+src/target \
 
